@@ -8,6 +8,14 @@ class Node {
     }
 
 }
+/**
+ * 单链表
+ *
+ * 单纯的链表处理是比较简单的，麻烦的是遇到几个特殊的节点时的处理：
+ *
+ * - 添加到头节点，删除头节点，注意 header 指针的处理
+ * - 删除到尾结点，需要将 tail 指针指向前一个节点
+ */
 class MyLinkedList {
     private Node header;
     private Node tail;
@@ -25,7 +33,7 @@ class MyLinkedList {
 
         int i = 0;
         Node node = header;
-        while (i < index) {
+        while (i != index) {
             node = node.next;
             i ++;
         }
@@ -91,6 +99,9 @@ class MyLinkedList {
 
         if (index == 0) {
             header = header.next;
+            if (size == 1) {
+                tail = header;
+            }
             size --;
             return;
         }
@@ -103,8 +114,17 @@ class MyLinkedList {
             previous = previous.next;
             i ++;
         }
-        previous.next = node.next;
+
+        if (index == size - 1) {
+            previous.next = null;
+            tail = previous;
+        }else {
+            previous.next = node.next;
+        }
+
+
         size --;
     }
+
 }
 
